@@ -9,6 +9,7 @@ start:
 
 main_loop:
     ACALL displaySegments
+    ACALL teclado_input
     JMP main_loop
 
 displaySegments:
@@ -174,6 +175,136 @@ sendCommand:
     CALL short_delay
     RET
 
+teclado_input:
+    MOV P0, #0F0H
+    MOV A, P0
+
+    CJNE A, #0E0H, check_column_2
+    ACALL displayCafeQuente
+    SJMP done
+
+check_column_2:
+    CJNE A, #0D0H, check_column_3
+    ACALL displayCafeGelado
+    SJMP done
+
+check_column_3:
+    CJNE A, #0B0H, check_column_4
+    ACALL displayChaQuente
+    SJMP done
+
+check_column_4:
+    CJNE A, #070H, done
+    ACALL displayChaGelado
+
+done:
+    RET
+
+displayCafeQuente:
+    ACALL clearLCD
+    MOV A, #'C'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #'f'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #' '
+    ACALL sendCharacter
+    MOV A, #'Q'
+    ACALL sendCharacter
+    MOV A, #'u'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #'n'
+    ACALL sendCharacter
+    MOV A, #'t'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    RET
+
+displayCafeGelado:
+    ACALL clearLCD
+    MOV A, #'C'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #'f'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #' '
+    ACALL sendCharacter
+    MOV A, #'G'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #'l'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #'d'
+    ACALL sendCharacter
+    MOV A, #'o'
+    ACALL sendCharacter
+    RET
+
+displayChaQuente:
+    ACALL clearLCD
+    MOV A, #'C'
+    ACALL sendCharacter
+    MOV A, #'h'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #' '
+    ACALL sendCharacter
+    MOV A, #'Q'
+    ACALL sendCharacter
+    MOV A, #'u'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #'n'
+    ACALL sendCharacter
+    MOV A, #'t'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    RET
+
+displayChaGelado:
+    ACALL clearLCD
+    MOV A, #'C'
+    ACALL sendCharacter
+    MOV A, #'h'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #' '
+    ACALL sendCharacter
+    MOV A, #'G'
+    ACALL sendCharacter
+    MOV A, #'e'
+    ACALL sendCharacter
+    MOV A, #'l'
+    ACALL sendCharacter
+    MOV A, #'a'
+    ACALL sendCharacter
+    MOV A, #'d'
+    ACALL sendCharacter
+    MOV A, #'o'
+    ACALL sendCharacter
+    RET
+
+clearLCD:
+    MOV A, #01H
+    ACALL sendCommand
+    RET
+
 delay:
     MOV R0, #200
 delay_loop:
@@ -184,4 +315,4 @@ short_delay:
     MOV R0, #50
 short_delay_loop:
     DJNZ R0, short_delay_loop
-    RET
+    RET
