@@ -77,7 +77,7 @@ START:
 	; Muda para a segunda linha do display
 	ACALL segundaLinha
 
-	; Exibe "de Café"
+	; Exibe "de CafÃ©"
 	MOV A, #'d'
 	ACALL sendCharacter
 	CALL delay
@@ -199,9 +199,9 @@ posicionaCursor:
 	RET
 
 segundaLinha:
-	; Muda o cursor para o início da segunda linha
+	; Muda o cursor para o inÃ­cio da segunda linha
 	CLR RS
-	MOV A, #0C0h  ; Endereço da segunda linha no LCD
+	MOV A, #0C0h  ; EndereÃ§o da segunda linha no LCD
 	ACALL sendCommand
 	CALL delay
 	RET
