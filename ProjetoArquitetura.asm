@@ -6,15 +6,15 @@ ORG 0000H
 
 ORG 0030H
 START:
-    ACALL lcd_init
+    LCALL lcd_init
 
-    ACALL displayInicioMsg
-    ACALL delay_10ms
-    ACALL clearLCD
-    ACALL displayTemperaturaInicial
+    LCALL displayInicioMsg
+    LCALL delay_10ms
+    LCALL clearLCD
+    LCALL displayTemperaturaInicial
 
 espera_tecla:
-    ACALL leituraTeclado
+    LCALL leituraTeclado
     JNB F0, espera_tecla
     CLR F0
     JMP main_loop
@@ -32,7 +32,7 @@ lcd_init:
     SETB EN
     CLR EN
 
-    CALL delay
+    LCALL delay
               
     SETB EN
     CLR EN
@@ -41,7 +41,7 @@ lcd_init:
 
     SETB EN
     CLR EN
-    CALL delay
+    LCALL delay
 
     CLR P1.7
     CLR P1.6
@@ -56,7 +56,7 @@ lcd_init:
 
     SETB EN
     CLR EN
-    CALL delay
+    LCALL delay
 
     CLR P1.7
     CLR P1.6
@@ -73,7 +73,7 @@ lcd_init:
 
     SETB EN
     CLR EN
-    CALL delay
+    LCALL delay
     RET
 
 sendCharacter:
@@ -102,143 +102,143 @@ sendCharacter:
     SETB EN
     CLR EN
 
-    CALL delay
-    CALL delay
+    LCALL delay
+    LCALL delay
     RET
 
-    ACALL leituraTeclado
+    LCALL leituraTeclado
     JMP main_loop
 
 displayInicioMsg:
     MOV A, #'S'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL sendCharacter
 
-    ACALL segundaLinha
+    LCALL segundaLinha
 
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'b'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'b'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'1'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL sendCharacter
     RET
 
 displayTemperaturaInicial:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'T'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'m'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
 
-    ACALL segundaLinha
+    LCALL segundaLinha
 
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'g'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'2'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'0'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL sendCharacter
     RET
 
 colScan:
@@ -259,813 +259,1493 @@ leituraTeclado:
 
     MOV P0, #0FFh
     CLR P0.0
-    CALL colScan
+    LCALL colScan
     JB F0, processaTecla
 
     SETB P0.0
     CLR P0.1
-    CALL colScan
+    LCALL colScan
     JB F0, processaTecla
 
     SETB P0.1
     CLR P0.2
-    CALL colScan
+    LCALL colScan
     JB F0, processaTecla
 
     SETB P0.2
     CLR P0.3
-    CALL colScan
+    LCALL colScan
     JB F0, processaTecla
     RET
 
 processaTecla:
     CJNE R0, #0BH, tecla1
-    ACALL displayCafeQuente
-    ACALL temperaturaCafeQuente
-    ACALL esquentandoCafeQuente
-    ACALL delay_10ms
-    ACALL bebidaPronta
+    LCALL motorHorario
+    LCALL displayCafeQuente
+    LCALL temperaturaCafeQuente
+    LCALL esquentandoCafeQuente
+    LCALL delay_10ms
+    LCALL desligaMotor
+    LCALL bebidaPronta
     LJMP main_loop
 
 tecla1:
     CJNE R0, #0AH, tecla2
-    ACALL displayCafeGelado
-    ACALL temperaturaCafeGelado
-    ACALL esfriandoCafeGelado
-    ACALL delay_10ms
-    ACALL bebidaPronta
+    LCALL motorAntiHorario
+    LCALL displayCafeGelado
+    LCALL temperaturaCafeGelado
+    LCALL esfriandoCafeGelado
+    LCALL delay_10ms
+    LCALL desligaMotor
+    LCALL bebidaPronta
     LJMP main_loop
 
 tecla2:
     CJNE R0, #09H, tecla3
-    ACALL displayChaQuente
-    ACALL temperaturaChaQuente
-    ACALL esquentandoChaQuente
-    ACALL delay_10ms
-    ACALL bebidaPronta
+    LCALL motorHorario
+    LCALL displayChaQuente
+    LCALL temperaturaChaQuente
+    LCALL esquentandoChaQuente
+    LCALL delay_10ms
+    LCALL desligaMotor
+    LCALL bebidaPronta
     LJMP main_loop
 
 tecla3:
     CJNE R0, #08H, endProcess
-    ACALL displayChaGelado
-    ACALL temperaturaChaGelado
-    ACALL esfriandoChaGelado
-    ACALL delay_10ms
-    ACALL bebidaPronta
+    LCALL motorAntiHorario
+    LCALL displayChaGelado
+    LCALL temperaturaChaGelado
+    LCALL esfriandoChaGelado
+    LCALL delay_10ms
+    LCALL desligaMotor
+    LCALL bebidaPronta
     LJMP main_loop
 
 endProcess:
     RET
 
 displayCafeQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'Q'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'['
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'1'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #']'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 displayCafeGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'G'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'['
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'2'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #']'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 displayChaQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'h'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'Q'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'['
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'3'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #']'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 displayChaGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'h'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'G'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'['
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #']'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'l'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 temperaturaCafeQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'T'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'m'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
     MOV A, #'N'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'5'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 temperaturaCafeGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'T'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'m'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'N'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'5'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 temperaturaChaQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'T'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'m'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
-    ACALL sendCharacter
     MOV A, #'N'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'0'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 temperaturaChaGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'T'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'m'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'N'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'c'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'1'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'0'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 esquentandoCafeQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'E'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'q'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'g'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'5'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 esfriandoCafeGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'E'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'g'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'5'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 esquentandoChaQuente:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'E'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'q'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorHorario
 
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'g'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'4'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'0'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorHorario
+    LCALL desligaMotor
     RET
 
 esfriandoChaGelado:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL motorAntiHorario
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'E'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'s'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'f'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
 
-    ACALL segundaLinha
+    LCALL desligaMotor
+    LCALL segundaLinha
+    LCALL motorAntiHorario
 
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'g'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'u'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'1'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'0'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
     MOV A, #'C'
-    ACALL sendCharacter
+    LCALL desligaMotor
+    LCALL sendCharacter
+    LCALL motorAntiHorario
+    LCALL desligaMotor
     RET
 
 bebidaPronta:
-    ACALL clearLCD
-    ACALL long_delay
+    LCALL clearLCD
+    LCALL long_delay
     MOV A, #'B'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'e'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'b'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'i'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'d'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #' '
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'p'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'r'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'o'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'n'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'t'
-    ACALL sendCharacter
+    LCALL sendCharacter
     MOV A, #'a'
-    ACALL sendCharacter
+    LCALL sendCharacter
     
 espera_fim:
     NOP
@@ -1074,19 +1754,21 @@ espera_fim:
 
 clearLCD:
     MOV A, #01H
-    ACALL sendCommand
+    LCALL sendCommand
     RET
 
 segundaLinha:
     CLR RS
     MOV A, #0C0H
-    ACALL sendCommand
+    LCALL sendCommand
     RET
 
 delay_10ms:
     MOV R2, #2
+
 delay_10ms_loop:
     MOV R1, #250
+
 delay_inner_loop:
     DJNZ R1, delay_inner_loop
     DJNZ R2, delay_10ms_loop
@@ -1094,8 +1776,10 @@ delay_inner_loop:
 
 long_delay:
     MOV R2, #5
+
 long_delay_loop:
     MOV R1, #250
+
 delay_inner_loop_long:
     DJNZ R1, delay_inner_loop_long
     DJNZ R2, long_delay_loop
@@ -1123,11 +1807,27 @@ sendCommand:
     MOV P1.4, C
     SETB EN
     CLR EN
-    CALL delay
+    LCALL delay
+    RET
+
+motorHorario:
+    SETB P3.0
+    CLR P3.1
+    RET
+
+motorAntiHorario:
+    CLR P3.0
+    SETB P3.1
+    RET
+
+desligaMotor:
+    CLR P3.0
+    CLR P3.1
     RET
 
 delay:
     MOV R0, #50
+
 short_delay_loop:
     DJNZ R0, short_delay_loop
     RET
