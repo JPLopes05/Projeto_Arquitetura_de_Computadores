@@ -874,12 +874,12 @@ displayChaGelado:
     RET
 
 temperaturaCafeQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'T'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário, padrão para bebidas quentes
+    LCALL clearLCD           ; Limpa o display LCD para exibir a nova mensagem
+    LCALL long_delay         ; Atraso para garantir estabilidade da exibição
+    MOV A, #'T'              ; Carrega o caractere 'T' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'T' para o display
     LCALL motorHorario
     MOV A, #'e'
     LCALL desligaMotor
@@ -923,7 +923,7 @@ temperaturaCafeQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display
     LCALL motorHorario
 
     MOV A, #'N'
@@ -986,12 +986,12 @@ temperaturaCafeQuente:
     RET
 
 temperaturaCafeGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'T'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário, padrão para bebidas frias
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Atraso para estabilidade da exibição
+    MOV A, #'T'              ; Carrega o caractere 'T' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'T' para o display
     LCALL motorAntiHorario
     MOV A, #'e'
     LCALL desligaMotor
@@ -1035,7 +1035,7 @@ temperaturaCafeGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorAntiHorario
 
     MOV A, #'N'
@@ -1094,12 +1094,12 @@ temperaturaCafeGelado:
     RET
 
 temperaturaChaQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'T'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário, padrão para bebidas quentes
+    LCALL clearLCD           ; Limpa o display LCD para exibir a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para estabilidade
+    MOV A, #'T'              ; Carrega o caractere 'T' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'T' para o display
     LCALL motorHorario
     MOV A, #'e'
     LCALL desligaMotor
@@ -1143,7 +1143,7 @@ temperaturaChaQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorHorario
 
     MOV A, #'N'
@@ -1206,12 +1206,12 @@ temperaturaChaQuente:
     RET
 
 temperaturaChaGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'T'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário, padrão para bebidas frias
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Atraso para estabilidade da exibição
+    MOV A, #'T'              ; Carrega o caractere 'T' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'T' para o display
     LCALL motorAntiHorario
     MOV A, #'e'
     LCALL desligaMotor
@@ -1255,7 +1255,7 @@ temperaturaChaGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorAntiHorario
 
     MOV A, #'N'
@@ -1318,12 +1318,12 @@ temperaturaChaGelado:
     RET
 
 esquentandoCafeQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'E'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário para preparar a bebida quente
+    LCALL clearLCD           ; Limpa o display LCD antes de exibir a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para garantir estabilidade no display
+    MOV A, #'E'              ; Carrega o caractere 'E' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente antes de enviar o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'E' para o display
     LCALL motorHorario
     MOV A, #'s'
     LCALL desligaMotor
@@ -1375,7 +1375,7 @@ esquentandoCafeQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorHorario
 
     MOV A, #'a'
@@ -1430,12 +1430,12 @@ esquentandoCafeQuente:
     RET
 
 esfriandoCafeGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'E'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário para bebida gelada
+    LCALL clearLCD           ; Limpa o display LCD para exibir a nova mensagem
+    LCALL long_delay         ; Adiciona atraso para estabilidade no display
+    MOV A, #'E'              ; Carrega o caractere 'E' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente antes de enviar o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'E' para o display
     LCALL motorAntiHorario
     MOV A, #'s'
     LCALL desligaMotor
@@ -1479,7 +1479,7 @@ esfriandoCafeGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorAntiHorario
 
     MOV A, #'a'
@@ -1530,12 +1530,12 @@ esfriandoCafeGelado:
     RET
 
 esquentandoChaQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'E'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário para preparar o chá quente
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Atraso para garantir estabilidade da exibição
+    MOV A, #'E'              ; Carrega o caractere 'E' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'E' para o display
     LCALL motorHorario
     MOV A, #'s'
     LCALL desligaMotor
@@ -1587,7 +1587,7 @@ esquentandoChaQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorHorario
 
     MOV A, #'a'
@@ -1642,12 +1642,12 @@ esquentandoChaQuente:
     RET
 
 esfriandoChaGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'E'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário para resfriar o chá
+    LCALL clearLCD           ; Limpa o display LCD para exibir a nova mensagem
+    LCALL long_delay         ; Atraso para estabilidade na exibição
+    MOV A, #'E'              ; Carrega o caractere 'E' no acumulador
+    LCALL desligaMotor       ; Desliga o motor temporariamente antes do próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'E' para o display
     LCALL motorAntiHorario
     MOV A, #'s'
     LCALL desligaMotor
@@ -1691,7 +1691,7 @@ esfriandoChaGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor para a segunda linha do display 
     LCALL motorAntiHorario
 
     MOV A, #'a'
@@ -1744,6 +1744,7 @@ esfriandoChaGelado:
     LCALL motorAntiHorario
     LCALL desligaMotor
     RET
+
 
 bebidaPronta:
     LCALL clearLCD
@@ -1859,3 +1860,4 @@ delay:
 short_delay_loop:
     DJNZ R0, short_delay_loop
     RET
+
