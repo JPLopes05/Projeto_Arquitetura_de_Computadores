@@ -1,95 +1,112 @@
-RS      equ     P1.3
-EN      equ     P1.2
+; Definições de pinos
+RS      equ     P1.3        ; Define o pino RS (Register Select) do LCD no pino P1.3
+EN      equ     P1.2        ; Define o pino EN (Enable) do LCD no pino P1.2
 
+; Início do programa na posição de memória 0000H
 ORG 0000H
-    LJMP START
+    LJMP START              ; Realiza um salto para o rótulo START, iniciando o programa
 
+; Posição de início para a rotina principal
 ORG 0030H
 START:
-    LCALL lcd_init
+    LCALL lcd_init          ; Chama a sub-rotina de inicialização do LCD
 
-    LCALL displayInicioMsg
-    LCALL delay_10ms
-    LCALL clearLCD
-    LCALL displayTemperaturaInicial
+    LCALL displayInicioMsg  ; Chama a sub-rotina para exibir a mensagem inicial de boas-vindas
+    LCALL delay_10ms        ; Adiciona um pequeno atraso de 10ms
+    LCALL clearLCD          ; Chama a sub-rotina para limpar o display LCD
+    LCALL displayTemperaturaInicial ; Exibe a temperatura inicial no LCD
 
+; Espera por uma tecla ser pressionada
 espera_tecla:
-    LCALL leituraTeclado
-    JNB F0, espera_tecla
-    CLR F0
-    JMP main_loop
+    LCALL leituraTeclado    ; Chama a sub-rotina para ler o teclado
+    JNB F0, espera_tecla    ; Se F0 estiver limpo (nenhuma tecla pressionada), volta para 'espera_tecla'
+    CLR F0                  ; Limpa o flag F0 ao detectar uma tecla pressionada
+    JMP main_loop           ; Vai para o loop principal do programa
 
+; Rotina principal
 main_loop:
 
+; Sub-rotina lcd_init - Inicializa o LCD
 lcd_init:
-    CLR RS
+    CLR RS                  ; Define RS como 0 para enviar comandos ao LCD
 
-    CLR P1.7
-    CLR P1.6
-    SETB P1.5
-    CLR P1.4
+    ; Sequência de inicialização do LCD
+    CLR P1.7                ; Configura a porta P1.7 como 0
+    CLR P1.6                ; Configura a porta P1.6 como 0
+    SETB P1.5               ; Configura a porta P1.5 como 1
+    CLR P1.4                ; Configura a porta P1.4 como 0
 
-    SETB EN
-    CLR EN
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable, enviando o comando ao LCD
 
-    LCALL delay
+    LCALL delay             ; Adiciona um pequeno atraso para estabilização do comando
               
-    SETB EN
-    CLR EN
+    SETB EN                 ; Ativa novamente o pino Enable
+    CLR EN                  ; Desativa o pino Enable, enviando o próximo comando
 
-    SETB P1.7
+    SETB P1.7               ; Define P1.7 como 1
 
-    SETB EN
-    CLR EN
-    LCALL delay
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable
 
+    LCALL delay             ; Adiciona um pequeno atraso
+
+    ; Define a configuração padrão para o LCD
     CLR P1.7
     CLR P1.6
     CLR P1.5
     CLR P1.4
 
-    SETB EN
-    CLR EN
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable
 
+    ; Configuração para 8 bits e 2 linhas
     SETB P1.6
     SETB P1.5
 
-    SETB EN
-    CLR EN
-    LCALL delay
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable
 
+    LCALL delay             ; Adiciona um pequeno atraso
+
+    ; Habilita o cursor e configura para escrita
     CLR P1.7
     CLR P1.6
     CLR P1.5
     CLR P1.4
 
-    SETB EN
-    CLR EN
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable
 
     SETB P1.7
     SETB P1.6
     SETB P1.5
     SETB P1.4
 
-    SETB EN
-    CLR EN
-    LCALL delay
-    RET
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable
 
+    LCALL delay             ; Adiciona um pequeno atraso final para estabilizar o LCD
+    RET                     ; Retorna da sub-rotina lcd_init
+
+; Sub-rotina sendCharacter - Envia um caractere para o LCD
 sendCharacter:
-    SETB RS
-    MOV C, ACC.7
-    MOV P1.7, C
-    MOV C, ACC.6
-    MOV P1.6, C
-    MOV C, ACC.5
-    MOV P1.5, C
-    MOV C, ACC.4
-    MOV P1.4, C
+    SETB RS                 ; Define RS como 1 para indicar que é um dado (não comando)
 
-    SETB EN
-    CLR EN
+    ; Transfere bits do acumulador (ACC) para o LCD
+    MOV C, ACC.7            ; Move o bit 7 do ACC para o carry
+    MOV P1.7, C             ; Move o carry para P1.7
+    MOV C, ACC.6            ; Move o bit 6 do ACC para o carry
+    MOV P1.6, C             ; Move o carry para P1.6
+    MOV C, ACC.5            ; Move o bit 5 do ACC para o carry
+    MOV P1.5, C             ; Move o carry para P1.5
+    MOV C, ACC.4            ; Move o bit 4 do ACC para o carry
+    MOV P1.4, C             ; Move o carry para P1.4
 
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable, enviando a primeira metade do dado
+
+    ; Envia a segunda metade do caractere
     MOV C, ACC.3
     MOV P1.7, C
     MOV C, ACC.2
@@ -99,21 +116,23 @@ sendCharacter:
     MOV C, ACC.0
     MOV P1.4, C
 
-    SETB EN
-    CLR EN
+    SETB EN                 ; Ativa o pino Enable
+    CLR EN                  ; Desativa o pino Enable, completando o envio do caractere
 
-    LCALL delay
-    LCALL delay
-    RET
+    LCALL delay             ; Atraso para estabilizar o caractere enviado
+    LCALL delay             ; Atraso adicional
+    RET                     ; Retorna da sub-rotina sendCharacter
 
-    LCALL leituraTeclado
-    JMP main_loop
+    ; Continuação do loop de leitura do teclado
+    LCALL leituraTeclado    ; Chama a leitura do teclado novamente
+    JMP main_loop           ; Volta ao loop principal
 
+; Sub-rotina displayInicioMsg - Exibe a mensagem inicial no LCD
 displayInicioMsg:
-    MOV A, #'S'
-    LCALL sendCharacter
-    MOV A, #'e'
-    LCALL sendCharacter
+    MOV A, #'S'             ; Carrega o caractere 'S' no acumulador
+    LCALL sendCharacter     ; Envia o caractere para o LCD
+    MOV A, #'e'             ; Carrega 'e' no acumulador
+    LCALL sendCharacter     ; Envia 'e' para o LCD
     MOV A, #'l'
     LCALL sendCharacter
     MOV A, #'e'
@@ -143,8 +162,9 @@ displayInicioMsg:
     MOV A, #'o'
     LCALL sendCharacter
 
-    LCALL segundaLinha
+    LCALL segundaLinha      ; Move o cursor para a segunda linha do LCD
 
+    ; Exibe "de bebida 1 a 4" na segunda linha
     MOV A, #'d'
     LCALL sendCharacter
     MOV A, #'e'
@@ -175,11 +195,14 @@ displayInicioMsg:
     LCALL sendCharacter
     MOV A, #'4'
     LCALL sendCharacter
-    RET
+    RET                     ; Retorna da sub-rotina displayInicioMsg
 
+; Sub-rotina displayTemperaturaInicial - Exibe a temperatura inicial no LCD
 displayTemperaturaInicial:
-    LCALL clearLCD
-    LCALL long_delay
+    LCALL clearLCD          ; Limpa o LCD antes de exibir a temperatura
+    LCALL long_delay        ; Atraso longo para estabilização
+
+    ; Exibe "Temperatura da" na primeira linha
     MOV A, #'T'
     LCALL sendCharacter
     MOV A, #'e'
@@ -209,8 +232,9 @@ displayTemperaturaInicial:
     MOV A, #'a'
     LCALL sendCharacter
 
-    LCALL segundaLinha
+    LCALL segundaLinha      ; Move o cursor para a segunda linha do LCD
 
+    ; Exibe "agua atual 20C" na segunda linha
     MOV A, #'a'
     LCALL sendCharacter
     MOV A, #'g'
@@ -239,30 +263,33 @@ displayTemperaturaInicial:
     LCALL sendCharacter
     MOV A, #'C'
     LCALL sendCharacter
-    RET
+    RET                     ; Retorna da sub-rotina displayTemperaturaInicial
 
+;Escaneia as colunas do teclado para verificar se uma tecla foi pressionada
 colScan:
-    JNB P0.4, gotKey
+    JNB P0.4, gotKey        ; Verifica a tecla na coluna P0.4; se pressionada, vai para gotKey
+    INC R0                  ; Incrementa R0 para identificar a próxima coluna
+    JNB P0.5, gotKey        ; Verifica a tecla na coluna P0.5; se pressionada, vai para gotKey
     INC R0
-    JNB P0.5, gotKey
+    JNB P0.6, gotKey        ; Verifica a tecla na coluna P0.6; se pressionada, vai para gotKey
     INC R0
-    JNB P0.6, gotKey
-    INC R0
-    RET
+    RET                     ; Retorna se nenhuma tecla foi detectada
 
 gotKey:
-    SETB F0
+    SETB F0                 ; Define o flag F0 para sinalizar que uma tecla foi pressionada
     RET
 
+;Varre as linhas do teclado para identificar a tecla pressionada
 leituraTeclado:
-    MOV R0, #0
+    MOV R0, #0              ; Inicializa o contador de teclas em R0
 
-    MOV P0, #0FFh
+    ; Ativa cada linha do teclado, chama colScan e verifica se F0 foi ativado
+    MOV P0, #0FFh           ; Configura a porta P0 para leitura do teclado
     CLR P0.0
     LCALL colScan
-    JB F0, processaTecla
+    JB F0, processaTecla    ; Se uma tecla foi pressionada, processa a tecla
 
-    SETB P0.0
+    SETB P0.0               ; Reseta a linha anterior e ativa a próxima
     CLR P0.1
     LCALL colScan
     JB F0, processaTecla
@@ -276,10 +303,11 @@ leituraTeclado:
     CLR P0.3
     LCALL colScan
     JB F0, processaTecla
-    RET
+    RET                     ; Retorna se nenhuma tecla foi pressionada
 
+;Verifica a tecla pressionada e executa a ação correspondente
 processaTecla:
-    CJNE R0, #0BH, tecla1
+    CJNE R0, #0BH, tecla1   ; Se a tecla é 1 executa as ações de café quente
     LCALL motorHorario
     LCALL displayCafeQuente
     LCALL temperaturaCafeQuente
@@ -287,10 +315,10 @@ processaTecla:
     LCALL delay_10ms
     LCALL desligaMotor
     LCALL bebidaPronta
-    LJMP main_loop
+    LJMP main_loop          ; Retorna ao loop principal após preparar a bebida
 
 tecla1:
-    CJNE R0, #0AH, tecla2
+    CJNE R0, #0AH, tecla2   ; Se a tecla é 2 executa as ações de café gelado
     LCALL motorAntiHorario
     LCALL displayCafeGelado
     LCALL temperaturaCafeGelado
@@ -301,7 +329,7 @@ tecla1:
     LJMP main_loop
 
 tecla2:
-    CJNE R0, #09H, tecla3
+    CJNE R0, #09H, tecla3   ; Se a tecla é 3 executa as ações de chá quente
     LCALL motorHorario
     LCALL displayChaQuente
     LCALL temperaturaChaQuente
@@ -312,7 +340,7 @@ tecla2:
     LJMP main_loop
 
 tecla3:
-    CJNE R0, #08H, endProcess
+    CJNE R0, #08H, endProcess ; Se a tecla é 4 executa as ações de chá gelado
     LCALL motorAntiHorario
     LCALL displayChaGelado
     LCALL temperaturaChaGelado
@@ -323,15 +351,15 @@ tecla3:
     LJMP main_loop
 
 endProcess:
-    RET
+    RET                     ; Finaliza a execução da rotina de processaTecla
 
 displayCafeQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'C'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário (bebidas quentes)
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para estabilidade do display
+    MOV A, #'C'              ; Carrega o caractere 'C' no acumulador para exibir no LCD
+    LCALL desligaMotor       ; Desliga o motor momentaneamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'C' para o display
     LCALL motorHorario
     MOV A, #'a'
     LCALL desligaMotor
@@ -391,7 +419,7 @@ displayCafeQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor do LCD para a segunda linha
     LCALL motorHorario
 
     MOV A, #'f'
@@ -458,12 +486,12 @@ displayCafeQuente:
     RET
 
 displayCafeGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'C'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário (bebidas frias)
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para estabilidade do display
+    MOV A, #'C'              ; Carrega o caractere 'C' no acumulador para exibir no LCD
+    LCALL desligaMotor       ; Desliga o motor momentaneamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'C' para o display
     LCALL motorAntiHorario
     MOV A, #'a'
     LCALL desligaMotor
@@ -523,7 +551,7 @@ displayCafeGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor do LCD para a segunda linha
     LCALL motorAntiHorario
 
     MOV A, #'f'
@@ -590,12 +618,12 @@ displayCafeGelado:
     RET
 
 displayChaQuente:
-    LCALL motorHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'C'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorHorario       ; Inicia o motor no sentido horário (bebidas quentes)
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para estabilidade do display
+    MOV A, #'C'              ; Carrega o caractere 'C' no acumulador para exibir no LCD
+    LCALL desligaMotor       ; Desliga o motor momentaneamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'C' para o display
     LCALL motorHorario
     MOV A, #'h'
     LCALL desligaMotor
@@ -651,7 +679,7 @@ displayChaQuente:
     LCALL motorHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor do LCD para a segunda linha
     LCALL motorHorario
 
     MOV A, #'f'
@@ -718,12 +746,12 @@ displayChaQuente:
     RET
 
 displayChaGelado:
-    LCALL motorAntiHorario
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'C'
-    LCALL desligaMotor
-    LCALL sendCharacter
+    LCALL motorAntiHorario   ; Inicia o motor no sentido anti-horário (bebidas frias)
+    LCALL clearLCD           ; Limpa o display LCD para a nova mensagem
+    LCALL long_delay         ; Adiciona um atraso para estabilidade do display
+    MOV A, #'C'              ; Carrega o caractere 'C' no acumulador para exibir no LCD
+    LCALL desligaMotor       ; Desliga o motor momentaneamente para o próximo caractere
+    LCALL sendCharacter      ; Envia o caractere 'C' para o display
     LCALL motorAntiHorario
     MOV A, #'h'
     LCALL desligaMotor
@@ -779,7 +807,7 @@ displayChaGelado:
     LCALL motorAntiHorario
 
     LCALL desligaMotor
-    LCALL segundaLinha
+    LCALL segundaLinha ; Move o cursor do LCD para a segunda linha
     LCALL motorAntiHorario
 
     MOV A, #'f'
