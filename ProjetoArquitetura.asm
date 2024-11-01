@@ -1745,14 +1745,13 @@ esfriandoChaGelado:
     LCALL desligaMotor
     RET
 
-
 bebidaPronta:
-    LCALL clearLCD
-    LCALL long_delay
-    MOV A, #'B'
-    LCALL sendCharacter
-    MOV A, #'e'
-    LCALL sendCharacter
+    LCALL clearLCD           ; Limpa o display LCD antes de exibir a mensagem final
+    LCALL long_delay         ; Adiciona um longo atraso para estabilidade da exibição
+    MOV A, #'B'              ; Carrega o caractere 'B' no acumulador para início da mensagem "Bebida pronta"
+    LCALL sendCharacter      ; Envia o caractere 'B' para o display
+    MOV A, #'e'              ; Carrega o caractere 'e' no acumulador
+    LCALL sendCharacter      ; Envia o caractere 'e' para o display
     MOV A, #'b'
     LCALL sendCharacter
     MOV A, #'i'
@@ -1777,46 +1776,46 @@ bebidaPronta:
     LCALL sendCharacter
     
 espera_fim:
-    NOP
-    SJMP espera_fim
-    RET
+    NOP                      ; Operação sem efeito para aguardar em loop
+    SJMP espera_fim          ; Mantém o programa em loop até uma interrupção ou reset
+    RET                      ; Retorna do subprograma
 
 clearLCD:
-    MOV A, #01H
-    LCALL sendCommand
-    RET
+    MOV A, #01H              ; Carrega o comando de limpeza (clear) no acumulador
+    LCALL sendCommand        ; Envia o comando de limpeza para o LCD
+    RET                      ; Retorna ao programa principal
 
 segundaLinha:
-    CLR RS
-    MOV A, #0C0H
-    LCALL sendCommand
-    RET
+    CLR RS                   ; Define RS para 0, indicando comando
+    MOV A, #0C0H             ; Move o cursor para o início da segunda linha
+    LCALL sendCommand        ; Envia o comando para o display
+    RET                      ; Retorna ao programa principal
 
 delay_10ms:
-    MOV R2, #2
+    MOV R2, #2               ; Configura o registrador R2 para contar o atraso de 10 ms
 
 delay_10ms_loop:
-    MOV R1, #250
+    MOV R1, #250             ; Define R1 para contagem de loop interno
 
 delay_inner_loop:
-    DJNZ R1, delay_inner_loop
-    DJNZ R2, delay_10ms_loop
-    RET
+    DJNZ R1, delay_inner_loop ; Loop interno decrementando R1 até zero
+    DJNZ R2, delay_10ms_loop  ; Decrementa R2 até zero, completando o atraso
+    RET                      ; Retorna ao programa principal
 
 long_delay:
-    MOV R2, #5
+    MOV R2, #5               ; Configura um atraso maior com R2
 
 long_delay_loop:
-    MOV R1, #250
+    MOV R1, #250             ; Define R1 para contagem do loop interno
 
 delay_inner_loop_long:
-    DJNZ R1, delay_inner_loop_long
-    DJNZ R2, long_delay_loop
-    RET
+    DJNZ R1, delay_inner_loop_long ; Decrementa R1 até zero no loop interno
+    DJNZ R2, long_delay_loop ; Decrementa R2 até zero, completando o longo atraso
+    RET                      ; Retorna ao programa principal
 
 sendCommand:
-    CLR RS
-    MOV C, ACC.7
+    CLR RS                   ; Define RS para comando (0)
+    MOV C, ACC.7             ; Envia bits de comando para a porta P1 do display (bit mais significativo)
     MOV P1.7, C
     MOV C, ACC.6
     MOV P1.6, C
@@ -1824,9 +1823,9 @@ sendCommand:
     MOV P1.5, C
     MOV C, ACC.4
     MOV P1.4, C
-    SETB EN
-    CLR EN
-    MOV C, ACC.3
+    SETB EN                  ; Pulso de habilitação do comando
+    CLR EN                   ; Desabilita pulso após envio do comando
+    MOV C, ACC.3             ; Envia bits de comando restantes para a porta P1
     MOV P1.7, C
     MOV C, ACC.2
     MOV P1.6, C
@@ -1834,30 +1833,29 @@ sendCommand:
     MOV P1.5, C
     MOV C, ACC.0
     MOV P1.4, C
-    SETB EN
-    CLR EN
-    LCALL delay
-    RET
+    SETB EN                  ; Pulso de habilitação do comando
+    CLR EN                   ; Desabilita pulso após envio do comando
+    LCALL delay              ; Chama uma função de atraso para dar tempo ao comando
+    RET                      ; Retorna ao programa principal
 
 motorHorario:
-    SETB P3.0
-    CLR P3.1
-    RET
+    SETB P3.0                ; Ativa o motor no sentido horário
+    CLR P3.1                 ; Garante que o sentido anti-horário está desativado
+    RET                      ; Retorna ao programa principal
 
 motorAntiHorario:
-    CLR P3.0
-    SETB P3.1
-    RET
+    CLR P3.0                 ; Garante que o sentido horário está desativado
+    SETB P3.1                ; Ativa o motor no sentido anti-horário
+    RET                      ; Retorna ao programa principal
 
 desligaMotor:
-    CLR P3.0
-    CLR P3.1
-    RET
+    CLR P3.0                 ; Desativa o sentido horário
+    CLR P3.1                 ; Desativa o sentido anti-horário
+    RET                      ; Retorna ao programa principal
 
 delay:
-    MOV R0, #50
+    MOV R0, #50              ; Define R0 para um atraso curto
 
 short_delay_loop:
-    DJNZ R0, short_delay_loop
-    RET
-
+    DJNZ R0, short_delay_loop ; Loop para criar um pequeno atraso
+    RET                      ; Retorna ao programa principal
