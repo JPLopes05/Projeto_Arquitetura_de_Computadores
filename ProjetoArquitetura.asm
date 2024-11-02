@@ -340,7 +340,7 @@ tecla2:
     LJMP main_loop
 
 tecla3:
-    CJNE R0, #08H, endProcess ; Se a tecla é 4 executa as ações de chá gelado
+    CJNE R0, #08H, tecla4 ; Se a tecla é 4 executa as ações de chá gelado
     LCALL motorAntiHorario
     LCALL displayChaGelado
     LCALL temperaturaChaGelado
@@ -349,6 +349,51 @@ tecla3:
     LCALL desligaMotor
     LCALL bebidaPronta
     LJMP main_loop
+
+tecla4:
+    CJNE R0, #07H, tecla5 ; Se a tecla é 5 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla5:
+    CJNE R0, #06H, tecla6 ; Se a tecla é 6 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla6:
+    CJNE R0, #05H, tecla7 ; Se a tecla é 7 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla7:
+    CJNE R0, #04H, tecla8 ; Se a tecla é 8 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla8:
+    CJNE R0, #03H, tecla9 ; Se a tecla é 9 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla9:
+    CJNE R0, #02H, tecla0 ; Se a tecla é 0 mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+tecla0:
+    CJNE R0, #01H, teclaAsterisco ; Se a tecla é * mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+teclaAsterisco:
+    CJNE R0, #0EH, teclaHashtag ; Se a tecla é # mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
+
+teclaHashtag:
+    CJNE R0, #00H, endProcess ; Se a tecla é # mostra a Opção Indisponível
+    LCALL displayOpcaoIndisponivel
+    RET
 
 endProcess:
     RET                     ; Finaliza a execução da rotina de processaTecla
@@ -871,6 +916,56 @@ displayChaGelado:
     LCALL sendCharacter
     LCALL motorAntiHorario
     LCALL desligaMotor
+    RET
+
+displayOpcaoIndisponivel:
+    LCALL clearLCD           ; Limpa o display LCD
+    LCALL long_delay         ; Atraso para estabilidade
+
+    ; Exibe "Opcao" na primeira linha
+    MOV A, #'O'
+    LCALL sendCharacter
+    MOV A, #'p'
+    LCALL sendCharacter
+    MOV A, #'c'
+    LCALL sendCharacter
+    MOV A, #'a'
+    LCALL sendCharacter
+    MOV A, #'o'
+    LCALL sendCharacter
+
+    LCALL segundaLinha       ; Move o cursor para a segunda linha
+
+    ; Exibe "Indisponivel" na segunda linha
+    MOV A, #'I'
+    LCALL sendCharacter
+    MOV A, #'n'
+    LCALL sendCharacter
+    MOV A, #'d'
+    LCALL sendCharacter
+    MOV A, #'i'
+    LCALL sendCharacter
+    MOV A, #'s'
+    LCALL sendCharacter
+    MOV A, #'p'
+    LCALL sendCharacter
+    MOV A, #'o'
+    LCALL sendCharacter
+    MOV A, #'n'
+    LCALL sendCharacter
+    MOV A, #'i'
+    LCALL sendCharacter
+    MOV A, #'v'
+    LCALL sendCharacter
+    MOV A, #'e'
+    LCALL sendCharacter
+    MOV A, #'l'
+    LCALL sendCharacter
+
+    ; Mantém o programa em loop para finalizar
+espera_fim_opcao:
+    NOP                      ; Operação sem efeito
+    SJMP espera_fim_opcao    ; Mantém o programa em loop
     RET
 
 temperaturaCafeQuente:
